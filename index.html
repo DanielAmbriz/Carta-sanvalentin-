@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Alondra 💌</title>
+
+<style>
+body{
+    margin:0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg,#ffdde1,#ee9ca7);
+    overflow:hidden;
+    text-align:center;
+}
+
+/* CARTA CERRADA */
+.carta{
+    width:300px;
+    height:200px;
+    background:white;
+    margin:150px auto;
+    border-radius:10px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    transition:transform .6s;
+}
+
+.carta:hover{
+    transform:scale(1.05);
+}
+
+.contenido{
+    display:none;
+}
+
+/* CORAZÓN */
+.corazon{
+    width:150px;
+    height:150px;
+    background:red;
+    position:relative;
+    transform:rotate(-45deg);
+    margin:30px auto;
+    animation:latido 1s infinite;
+}
+
+.corazon:before,
+.corazon:after{
+    content:"";
+    width:150px;
+    height:150px;
+    background:red;
+    border-radius:50%;
+    position:absolute;
+}
+
+.corazon:before{
+    top:-75px;
+    left:0;
+}
+
+.corazon:after{
+    left:75px;
+    top:0;
+}
+
+@keyframes latido{
+    0%{transform:rotate(-45deg) scale(1);}
+    50%{transform:rotate(-45deg) scale(1.1);}
+    100%{transform:rotate(-45deg) scale(1);}
+}
+
+/* BOTONES */
+.botones button{
+    padding:10px 20px;
+    margin:10px;
+    border:none;
+    border-radius:20px;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.si{
+    background:#ff4d6d;
+    color:white;
+}
+
+.no{
+    background:white;
+}
+
+/* MENSAJE FINAL */
+#mensaje{
+    display:none;
+    font-size:28px;
+    color:white;
+    margin-top:20px;
+}
+
+/* RAMO */
+.ramo{
+    display:none;
+    position:relative;
+    width:250px;
+    height:300px;
+    margin:30px auto;
+}
+
+.tallo{
+    width:6px;
+    height:150px;
+    background:green;
+    position:absolute;
+    bottom:0;
+}
+
+.flor{
+    width:40px;
+    height:60px;
+    background:#ff4d6d;
+    border-radius:50% 50% 50% 50%;
+    position:absolute;
+}
+
+.flor::after{
+    content:"";
+    width:20px;
+    height:30px;
+    background:#ff80ab;
+    position:absolute;
+    left:10px;
+    top:15px;
+    border-radius:50%;
+}
+
+/* corazones flotando */
+.heart{
+    position:fixed;
+    width:20px;
+    height:20px;
+    background:red;
+    transform:rotate(-45deg);
+    animation:float 4s linear infinite;
+}
+
+.heart:before,
+.heart:after{
+    content:"";
+    width:20px;
+    height:20px;
+    background:red;
+    border-radius:50%;
+    position:absolute;
+}
+
+.heart:before{top:-10px;}
+.heart:after{left:10px;}
+
+@keyframes float{
+    from{bottom:-10px;opacity:1;}
+    to{bottom:100vh;opacity:0;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="carta" onclick="abrirCarta()">
+    <h3>Para Alondra Montserrat Calderón Ssantoyo</h3>
+    <p>De: Daniel 💌</p>
+    <small>(Haz clic para abrir)</small>
+</div>
+
+<div class="contenido">
+
+    <h1>¿Quieres ser mi San Valentín? ❤️</h1>
+
+    <div id="corazon" class="corazon"></div>
+
+    <div id="ramo" class="ramo">
+        <div class="tallo" style="left:40px;"></div>
+        <div class="flor" style="left:25px;bottom:150px;"></div>
+
+        <div class="tallo" style="left:100px;"></div>
+        <div class="flor" style="left:85px;bottom:170px;"></div>
+
+        <div class="tallo" style="left:160px;"></div>
+        <div class="flor" style="left:145px;bottom:150px;"></div>
+    </div>
+
+    <div class="botones">
+        <button class="si" onclick="aceptar()">Sí 💖</button>
+        <button class="no" onclick="moverNo()">No 😅</button>
+    </div>
+
+    <div id="mensaje">Te amo mucho chaparrita ❤️</div>
+
+</div>
+
+<!-- AUDIO LISTO PARA GITHUB -->
+<audio id="musica" src="amor.mp3" preload="auto"></audio>
+
+<script>
+
+function abrirCarta(){
+    document.querySelector(".carta").style.display="none";
+    document.querySelector(".contenido").style.display="block";
+}
+
+function moverNo(){
+    const btn = document.querySelector(".no");
+    btn.style.position="absolute";
+    btn.style.left=Math.random()*80+"vw";
+    btn.style.top=Math.random()*80+"vh";
+}
+
+function aceptar(){
+
+    document.getElementById("corazon").style.display="none";
+    document.getElementById("ramo").style.display="block";
+
+    document.querySelector(".botones").style.display="none";
+    document.querySelector("h1").style.display="none";
+    document.getElementById("mensaje").style.display="block";
+
+    document.getElementById("musica").play();
+
+    for(let i=0;i<60;i++){
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.style.left = Math.random()*100 + "vw";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),4000);
+    }
+}
+
+</script>
+
+</body>
+</html>
